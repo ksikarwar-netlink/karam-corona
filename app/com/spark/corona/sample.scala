@@ -18,7 +18,7 @@ case class Person(name: String)
 case class Corona(date: String, cases: Int, deaths: Int, country: String)
  
 object sample {
-val path ="app/models/corona.csv"
+val path ="conf/Resources/corona.csv"
  
   
   
