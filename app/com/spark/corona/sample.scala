@@ -12,16 +12,17 @@ import java.util.Date
 import scala.collection.mutable.ArrayBuffer
 import java.nio.file.attribute.BasicFileAttributes
 import scala.collection.mutable.ListBuffer
-
+import play.api.Play
+ import java.lang.ClassLoader
 
 case class Person(name: String)
 case class Corona(date: String, cases: Int, deaths: Int, country: String)
  
 object sample {
-val path ="conf/Resources/corona.csv"
+  val path ="conf/Resources/corona.csv"
  
   
-  
+
 
 def readcoronaCSV(): Seq[Corona] = {
     for {
@@ -81,7 +82,10 @@ def getcases_and_death():(Int, Int) = {
     (filtered.map(_.deaths).sum, filtered.map(_.cases).sum)
   }
 
-
+def getdate():(String) = {
+    val date = corona.map(_.date).head
+    date
+  }
 
 
 def getfileCreation():String = {
@@ -95,8 +99,13 @@ def getfileCreation():String = {
                    val pattern: String = "E, dd MMM yyyy"
                    val simpleDateFormat: SimpleDateFormat = new SimpleDateFormat(pattern)
                 
+                 //  val filemaxdate=getdate
+                   val formatter1=new SimpleDateFormat("dd/MM/yyyy")
                  
-                   val date= simpleDateFormat.format(credate)
+                    val filemaxdate= formatter1.parse(getdate())
+                    
+                    
+                   val date= simpleDateFormat.format(filemaxdate)
                 
               date  
       }
