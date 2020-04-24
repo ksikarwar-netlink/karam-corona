@@ -23,11 +23,13 @@ object sample {
  
   
 
+  val url = "https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/"
 
 def readcoronaCSV(): Seq[Corona] = {
     for {
-      line <- Source.fromFile(path).getLines().drop(1).toVector
-      values = line.split(",").map(_.trim)
+      //line <- Source.fromFile(path).getLines().drop(1).toVector
+       line <- scala.io.Source.fromURL(url).getLines().drop(1).toVector
+       values = line.split(",").map(_.trim)
     } yield Corona(values(0), values(4).toInt, values(5).toInt, values(6))
   }
 
