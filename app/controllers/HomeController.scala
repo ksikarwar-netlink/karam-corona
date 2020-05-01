@@ -12,16 +12,36 @@ import play.api.mvc.Results.{Ok, BadRequest}
 import play.mvc.Results.badRequest
 import play.api.libs.json.Json
 
-import com.spark.corona.{sample}
+import com.spark.corona.{sample,sample2}
 import models.coronaData
 
 
+import java.io.File
+import java.nio.file.{Files, Path}
+import javax.inject._
+import java.nio.file.Paths
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.InetAddress;
+
+import akka.stream.IOResult
+import akka.stream.scaladsl._
+import akka.util.ByteString
+import play.api._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.libs.streams._
+import play.api.mvc.MultipartFormData.FilePart
+import play.api.mvc._
+import play.core.parsers.Multipart.FileInfo
+
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
+
+case class FormData(name: String)
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -30,23 +50,7 @@ import java.net.InetAddress;
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  
- /*
-   val conf = new SparkConf().set("spark.sql.caseSensitive", "true").set("spark.sql.crossJoin.enabled", "true").set("spark.driver.allowMultipleContexts", "true").set("spark.driver.memory", "4g").set("spark.executor.memory", "4g").set("spark.executor.cores", "8")
 
-         Logger.getLogger("org").setLevel(Level.OFF)
-Logger.getLogger("akka").setLevel(Level.OFF) 
- 
-      var sc = new SparkContext(conf)
-      var spark = SparkSession.builder().appName("Spark").config(conf).getOrCreate()
-     
-      val spark = SparkSession.builder()
-    .appName("Spark")
-    .master("local")
-    .getOrCreate()
-      var sqlContext = new SQLContext(sc)
-      
- */
   
   /**
    * Create an Action to render an HTML page.
@@ -55,9 +59,10 @@ Logger.getLogger("akka").setLevel(Level.OFF)
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
-  }
+
+  
+ 
+  
   
   def getHerokuAssignedPort(): Int = {
     val processBuilder: ProcessBuilder = new ProcessBuilder()
@@ -82,24 +87,26 @@ Logger.getLogger("akka").setLevel(Level.OFF)
  
   def corona() = Action { implicit request: Request[AnyContent] =>
    
-       val lastupdate=sample.getfileCreation()
+       val lastupdate=sample2.getfileCreation._2
        val topfive = coronaData.five()
         val formatter = java.text.NumberFormat.getIntegerInstance
-       val dc=  sample.getcases_and_death
+       val dc=  sample2.getcases_and_death
       
-       var death =formatter.format(dc._1)
-       var cases =formatter.format(dc._2)
-      
+       var totaldeath =formatter.format(dc._2)
+       var totalcases =formatter.format(dc._1)
+       var totalrecover =formatter.format(dc._3)
+       var totalactive =formatter.format(dc._4)
     
 
 
      
        
-       Ok(views.html.hello.render(topfive,lastupdate,cases,death))
+       Ok(views.html.hello.render(topfive,lastupdate,totalcases,totaldeath,totalrecover,totalactive))
   
   }
+ 
+ 
   
-
    
   
    
