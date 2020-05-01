@@ -1,21 +1,40 @@
 	
 
 
-@(people: (List[(String, String, String)],String,String,String))
+@(people: (List[(String, String, String)],String,String,String,String,String))
 @main("corona") {
 @defining(play.core.PlayVersion.current) { version =>
 
 <section id="content">
      <center><b> Last Updated -  @people._2</b></center>
+    
+ <div class="row" style="margin: 15px;padding: 10px;">
+      
+<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
+   <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 23px;">Total Case</h2>
+   <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 28px;">@people._3</h2>
+</div>
+<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
+   <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 23px;">Total Death</h2>
+    <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 28px;">@people._4</h2>
+</div>
+<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
+   <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 23px;">Total Recovered</h2>
+   <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 28px;">@people._5</h2>
+</div>
+<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
+    <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 23px;">Total Active</h2>
+    <h2 style="text-align: center;color: yellowgreen;font-weight: bold;font-size: 28px;">@people._6</h2>
+</div>
+</div>
           
-  <div class="wrapper doc">
+  <div class="wrapper doc" style="padding: 10px 0px;">
 
       
    
     <article> 
  
-     <p><h2 style="color: yellowgreen">Total Case : @people._3 &emsp; Total Death : @people._4</h2></p>
-
+   
       <p>Top five countries <b>total cases:</b></p>
 			   <table>
 			   <tr>

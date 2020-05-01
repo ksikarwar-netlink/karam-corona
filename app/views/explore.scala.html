@@ -1,34 +1,65 @@
-@(message:(List[(String, String, String)]))
+@(message:(List[(String, String, String, String, String)]))
 
 @main("explore") {
 @defining(play.core.PlayVersion.current) { version =>
 
 <section id="content">
+
+
   <div class="wrapper doc">
     <article>
     <p><b>Back to main page </b> <a href="@routes.HomeController.corona"> click here </a></p> 
       <h2>Corona Worldwide overview </h2>
        
+<div class="">
+  <input class="form-control mb-4" id="tableSearch" type="text"
+    placeholder="Search Country" aria-label="Search">
+
+  <table class="table table-bordered table-striped">
+<thead>
+      <tr>
+          <th><b>Country</b></th>
+          <th><b>Cases</b></th>
+           <th><b>Deaths</b></th>
+            <th><b>Recovered</b></th>
+           <th><b>Active</b></th>
+       </tr>
+    </thead>
       
-<table>
-<tr>
-          <td><b>Country</b></td>
-          <td><b>Cases</b></td>
-           <td><b>Death</b></td>
-      </tr>
+       
+      
+    
+      
+      <tbody id="myTable"> 
+      
    @for(person <- message){
       <tr>
           <td>@person._1</td>
           <td>@person._2</td>
           <td>@person._3</td>
+          <td>@person._4</td>
+          <td>@person._5</td>
       </tr>
     }
-</table>
+ </tbody>
+  </table>
+</div>
    <p><b>Back to main page </b> <a href="@routes.HomeController.corona"> click here </a></p>       
     </article>
  
   </div>
 </section>
+
+<script>
+$(document).ready(function(){
+	  $("#tableSearch").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#myTable tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+	});
+</script>
 
 }
 }
