@@ -1,6 +1,6 @@
 package models
 
-import com.spark.corona.sample
+import com.spark.corona.{sample,sample2}
 import scala.collection.mutable.ListBuffer
 case class Corona(name: String)
 
@@ -8,11 +8,16 @@ object coronaData {
  
   // called from com.spark.corona package 
   
-   val deathbyCountry=sample.getdeathbycountry
-   val case_death=sample.getcases_and_deathbycountry
+//   val deathbyCountry=sample.getdeathbycountry
+//   val case_death=sample.getcases_and_deathbycountry
+  
+  // val deathbyCountry=sample2.getdeathbycountry
+   val case_death=sample2.getcases_and_deathbycountry
+  
+  
    
   // top 5 country 
-   def topfive() :List[Corona] ={
+/*   def topfive() :List[Corona] ={
     
 
       var listper:List[Corona]=null
@@ -32,23 +37,23 @@ for(i <- x){
   
   
   listper
-}
+}*/
      
  // all country
    def allCountry() = {
-      var listper:List[(String,String,String)]=null
-      var listBuff = new ListBuffer[(String,String,String)]()  
+      var listper:List[(String,String,String,String,String)]=null
+      var listBuff = new ListBuffer[(String,String,String,String,String)]()  
 
 
       
-      var sort=case_death.toSeq.sortWith( _._2._2 > _._2._2)
+      var sort=case_death.toSeq.sortWith( _._2._1 > _._2._1)
      
        
        
         for(i <- sort){
         
         
-         val data="\n  "+i._1 +" : "+i._2._1+ ", "+i._2._2
+         val data="\n  "+i._1 +" : "+i._2._1+ ", "+i._2._2+ ", "+i._2._3+ ", "+i._2._4
          
          val country=i._1.replace("United_States_of_America", "USA")
                          .replace("United_Kingdom", "UK")
@@ -68,7 +73,8 @@ for(i <- x){
                                 
         // .map(_.replaceAll("United_States_of_America", "USA"))
          
-         val d=(country,i._2._1.toString(),i._2._2.toString())
+         val d=(country,i._2._1.toString(),i._2._2.toString()
+             ,i._2._3.toString(),i._2._4.toString())
           listBuff += (d)
         }
           listper=listBuff.toList
@@ -79,12 +85,14 @@ for(i <- x){
 }   
 
       def five() = {
+        
+        
       var listper:List[(String,String,String)]=null
       var listBuff = new ListBuffer[(String,String,String)]()  
 
 
       
-      var sort=case_death.toSeq.sortWith( _._2._2 > _._2._2).take(5)
+      var sort=case_death.toSeq.sortWith( _._2._1 > _._2._1).take(5)
      
        
        
