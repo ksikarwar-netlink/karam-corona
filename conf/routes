@@ -6,7 +6,7 @@
 # An example controller showing a sample home page
 GET     /                                   controllers.HomeController.corona
 GET     /explore                            controllers.HomeController.explore
-#GET     /tutorial                           controllers.HomeController.tutorial
+GET     /trend                           controllers.HomeController.index(name: String)
 GET     /corona                           controllers.HomeController.corona
 #GET     /hit                           controllers.HomeController.hit
 
