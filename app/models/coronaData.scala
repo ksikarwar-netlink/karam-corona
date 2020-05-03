@@ -41,8 +41,8 @@ for(i <- x){
      
  // all country
    def allCountry() = {
-      var listper:List[(String,String,String,String,String)]=null
-      var listBuff = new ListBuffer[(String,String,String,String,String)]()  
+      var listper:List[(String,String,String,String,String,String)]=null
+      var listBuff = new ListBuffer[(String,String,String,String,String,String)]()  
 
 
       
@@ -53,6 +53,7 @@ for(i <- x){
         for(i <- sort){
         
         
+          
          val data="\n  "+i._1 +" : "+i._2._1+ ", "+i._2._2+ ", "+i._2._3+ ", "+i._2._4
          
          val country=i._1.replace("United_States_of_America", "USA")
@@ -71,10 +72,13 @@ for(i <- x){
                                .replace("", "")
                                 .replace("", "")
                                 
-        // .map(_.replaceAll("United_States_of_America", "USA"))
+        val href= "/trend?name="+country
+        
+        
+        // println("\n\n\nchangenaem ========  : "+changename)
          
-         val d=(country,i._2._1.toString(),i._2._2.toString()
-             ,i._2._3.toString(),i._2._4.toString())
+         val d=(i._1,i._2._1.toString(),i._2._2.toString()
+             ,i._2._3.toString(),i._2._4.toString(),href)
           listBuff += (d)
         }
           listper=listBuff.toList
