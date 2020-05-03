@@ -1,4 +1,4 @@
-@(message:(List[(String, String, String, String, String)]))
+@(message:(List[(String, String, String, String, String, String)]))
 
 @main("explore") {
 @defining(play.core.PlayVersion.current) { version =>
@@ -33,8 +33,9 @@
       <tbody id="myTable"> 
       
    @for(person <- message){
+    
       <tr>
-          <td>@person._1</td>
+          <td><a target="_blank" href=@person._6>@person._1</a></td>
           <td>@person._2</td>
           <td>@person._3</td>
           <td>@person._4</td>
@@ -46,6 +47,9 @@
 </div>
    <p><b>Back to main page </b> <a href="@routes.HomeController.corona"> click here </a></p>       
     </article>
+ 
+ 
+ 
  
   </div>
 </section>
@@ -60,6 +64,10 @@ $(document).ready(function(){
 	  });
 	});
 </script>
+
+
+
+
 
 }
 }
