@@ -12,7 +12,7 @@ import play.api.mvc.Results.{Ok, BadRequest}
 import play.mvc.Results.badRequest
 import play.api.libs.json.Json
 
-import com.spark.corona.{sample,sample2}
+import com.spark.corona._
 import models.coronaData
 
 
@@ -81,7 +81,36 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
        
     val data=coronaData.allCountry
     
+      println("function call country name href: "+data(0))
+    
+    
     Ok(views.html.explore.render(data))
+  }
+  
+  
+   def index(name: String) = Action { implicit request: Request[AnyContent] =>
+    
+    
+     
+           
+       val trendCase=chart.trendCase(name)
+        
+       val trendDeath=chart.trendDeath(name)
+       val trendRec=chart.trendRecover(name)
+       
+         val passdate =trendCase._1
+          var strDate=passdate.split("-")
+               var (mnt,day,yr)=((strDate(0).toInt)-1,strDate(1),strDate(2))
+         
+         val dataCase = "["+trendCase._3+"]"
+          val dataDeath = "["+trendDeath._3+"]"
+           val dataRec = "["+trendRec._3+"]"
+         
+         
+         val lastdata = trendCase._2
+         val date =yr+", " +mnt+", "+day
+     
+          Ok(views.html.index.render(date,lastdata,name,dataCase,dataDeath,dataRec))
   }
   
  
@@ -97,7 +126,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
        var totalrecover =formatter.format(dc._3)
        var totalactive =formatter.format(dc._4)
     
-
 
      
        
