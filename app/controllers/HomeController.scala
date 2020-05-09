@@ -95,7 +95,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
        var country:List[(String,String)]=null
      var listBuff = new ListBuffer[(String,String)]
     for((k,v) <- data) {
-      var cname= (k,"/trend?name="+k)
+      var cname= (k,"/trend?name="+k.replace(" ", "%20"))
       listBuff += (cname)
     }
      country=listBuff.toList     
