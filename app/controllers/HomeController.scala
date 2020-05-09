@@ -41,6 +41,7 @@ import play.core.parsers.Multipart.FileInfo
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 
+import scala.collection.mutable.ListBuffer
 case class FormData(name: String)
 
 /**
@@ -81,7 +82,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
        
     val data=coronaData.allCountry
     
-      println("function call country name href: "+data(0))
     
     
     Ok(views.html.explore.render(data))
@@ -90,27 +90,36 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   
    def index(name: String) = Action { implicit request: Request[AnyContent] =>
     
-    
+     val data=sample2.getcases_and_deathbycountry.toSeq.sortWith( _._2._1 > _._2._1)
+   
+       var country:List[(String,String)]=null
+     var listBuff = new ListBuffer[(String,String)]
+    for((k,v) <- data) {
+      var cname= (k,"/trend?name="+k)
+      listBuff += (cname)
+    }
+     country=listBuff.toList     
      
-           
        val trendCase=chart.trendCase(name)
         
        val trendDeath=chart.trendDeath(name)
        val trendRec=chart.trendRecover(name)
        
-         val passdate =trendCase._1
-          var strDate=passdate.split("-")
-               var (mnt,day,yr)=((strDate(0).toInt)-1,strDate(1),strDate(2))
+       val passdate =trendCase._1
+       var strDate=passdate.split("-")
+       var (mnt,day,yr)=((strDate(0).toInt)-1,strDate(1),strDate(2))
          
-         val dataCase = "["+trendCase._3+"]"
-          val dataDeath = "["+trendDeath._3+"]"
-           val dataRec = "["+trendRec._3+"]"
+       val dataCase = "["+trendCase._3+"]"
+       val dataDeath = "["+trendDeath._3+"]"
+       val dataRec = "["+trendRec._3+"]"
          
-         
+         val incrdataCase = "["+trendCase._4+"]"
+         val incrdataDeath = "["+trendDeath._4+"]"
+         val incrdataRec = "["+trendRec._4+"]"
          val lastdata = trendCase._2
          val date =yr+", " +mnt+", "+day
      
-          Ok(views.html.index.render(date,lastdata,name,dataCase,dataDeath,dataRec))
+          Ok(views.html.index.render(date,lastdata,name,dataCase,dataDeath,dataRec,incrdataCase,incrdataDeath,incrdataRec,country))
   }
   
  
