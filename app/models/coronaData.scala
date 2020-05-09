@@ -46,7 +46,7 @@ object coronaData {
                                .replace("", "")
                                 .replace("", "")
                                 
-        val href= "/trend?name="+country
+        val href= "/trend?name="+country.replace(" ", "%20") 
         
         
         // println("\n\n\nchangenaem ========  : "+changename)
@@ -92,7 +92,7 @@ object coronaData {
                                 .replace("", "")
         
                                 
-              val href= "/trend?name="+country                   
+              val href= "/trend?name="+country.replace(" ", "%20")                    
                                 
          val data="\n  "+i._1 +" : "+i._2._1+ ", "+i._2._2
          val d=(country,i._2._1.toString(),i._2._2.toString(),href)
