@@ -22,7 +22,6 @@ object sample {
   val path ="conf/Resources/corona.csv"
  
   
-
   val url = "https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/"
 
 def readcoronaCSV(): Seq[Corona] = {
