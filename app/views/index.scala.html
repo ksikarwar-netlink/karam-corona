@@ -1,22 +1,34 @@
 
-@(message:(String,String,String,String,String,String))
+@(message:(String,String,String,String,String,String,String,String,String,List[(String, String)]))
 
 @main("trend") {
 @defining(play.core.PlayVersion.current) { version =>
 
 <section id="content">
+
+ <p style="padding-left:5%"><b>Back to page </b> <a href="@routes.HomeController.explore"> click here </a></p>       
+     
+ <div class="dropdown" style="padding-left: 5%;">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Country
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+    @message._10.map { country =>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href=@country._2>@country._1</a></li>
+     }
+    </ul>
+  </div>
+
+
+
+
+  <div id="chartCase" style="width: 95%; padding-left: 5%;"></div><br>
+  <div id="chartDeath" style="width: 95%; padding-left: 5%;"></div><br>
+  <div id="chartRec" style="width: 95%; padding-left: 5%;"></div><br>
+
+
 <p style="padding-left:5%"><b>Back to main page </b> <a href="@routes.HomeController.corona"> click here </a></p> 
-    
-
-  <div id="chartCase" style="width: 95%; padding-left: 5%;"></div>
-  <div id="chartDeath" style="width: 95%; padding-left: 5%;"></div>
-  <div id="chartRec" style="width: 95%; padding-left: 5%;"></div>
-
-
-
-
-<p style="padding-left:5%"><b>Back to page </b> <a href="@routes.HomeController.explore"> click here </a></p>       
-   
+ 
+ 
  
 
  
@@ -25,6 +37,9 @@
 </section>
 
 <script>
+
+
+
 
 
 // Create the chart Cases
@@ -77,39 +92,33 @@ Highcharts.stockChart('chartCase', {
     text:'Built chart in ' + '<b>@message._2</b>' // dummy text to reserve space for dynamic subtitle
   },
 
-  tooltip: {
-      style: {
-          fontSize: '10px'
-      },
-      enabled: true,
-      shared: true,
-      split: false,
-      useHTML: true,
-      backgroundColor: 'white',
-      thousandSeperator:true,
-      headerFormat: '<b>{point.key}</b><br><br>',
-  },
+tooltip: {
+   style: {
+       fontSize: '10px'
+   },
+   enabled: true,
+   shared: true,
+   split: false,
+   useHTML: true,
+   backgroundColor: 'white',
+   thousandSeperator:true,
+   headerFormat: '<b>{point.key}</b><br><br>',
+   pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b><br/>'
+},
   credits: {
       enabled: false
   },
   legend: {
-      enabled: false,
-      layout: 'horizontal',
-      verticalAlign: 'bottom',
-      y: 0,
-      itemStyle: {
-          fontSize: '10px'
-      },
-      symbolWidth: 12,
-      symbolRadius: 1
+      enabled: false
   },
   
   series: [{
 	  type: 'line',
 	  connectNulls: true,
-    name: 'Case',
+    name: 'Total Case',
     color :'#708090',
     data: @message._4,
+   
     pointStart: Date.UTC(@message._1),
       pointInterval: 24 * 3600 * 1000 ,
       marker: {
@@ -117,7 +126,18 @@ Highcharts.stockChart('chartCase', {
           radius: 3
       }
  
-  }]
+  }
+  ,{
+	  type: 'line',
+	  connectNulls: true,
+	  visible: true,
+ name: 'New Case',
+ color :'transparent',
+ data: @message._7,
+ pointStart: Date.UTC(@message._1),
+ pointInterval: 24 * 3600 * 1000 
+
+}]
 
 });
 
@@ -184,6 +204,7 @@ tooltip: {
    backgroundColor: 'white',
    thousandSeperator:true,
    headerFormat: '<b>{point.key}</b><br><br>',
+   pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b><br/>'
 },
 credits: {
    enabled: false
@@ -203,9 +224,11 @@ legend: {
 series: [{
 	  type: 'line',
 	  connectNulls: true,
- name: 'Death',
+	  
+ name: 'Total Death',
  color :'#e96565',
  data: @message._5,
+ 
  pointStart: Date.UTC(@message._1),
    pointInterval: 24 * 3600 * 1000 ,
    marker: {
@@ -213,13 +236,23 @@ series: [{
        radius: 3
    }
 
+} ,{
+	  type: 'line',
+	  connectNulls: true,
+	  visible: true,
+ name: 'New Death',
+ color :'transparent',
+ data: @message._8,
+ pointStart: Date.UTC(@message._1),
+ pointInterval: 24 * 3600 * 1000 
+
 }]
 
 });
 
 
 
-//Create the chart Cases
+//Create the chart Recover
 Highcharts.stockChart('chartRec', {
 chart: {
 
@@ -249,7 +282,7 @@ rangeSelector: {
 
 yAxis: {
 	 
-
+   
    labels:{  
       enabled:true
    },
@@ -280,6 +313,7 @@ tooltip: {
    backgroundColor: 'white',
    thousandSeperator:true,
    headerFormat: '<b>{point.key}</b><br><br>',
+   pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b><br/>'
 },
 credits: {
    enabled: false
@@ -299,7 +333,7 @@ legend: {
 series: [{
 	  type: 'line',
 	  connectNulls: true,
- name: 'Recover',
+ name: 'Total Recover',
  color :'#89ab45',
  data: @message._6,
  pointStart: Date.UTC(@message._1),
@@ -308,6 +342,16 @@ series: [{
        enabled: true,
        radius: 3
    }
+
+} ,{
+	  type: 'line',
+	  connectNulls: true,
+	  visible: true,
+ name: 'New Recover',
+ color :'transparent',
+ data: @message._9,
+ pointStart: Date.UTC(@message._1),
+ pointInterval: 24 * 3600 * 1000 
 
 }]
 
