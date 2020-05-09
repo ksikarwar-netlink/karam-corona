@@ -8,36 +8,10 @@ object coronaData {
  
   // called from com.spark.corona package 
   
-//   val deathbyCountry=sample.getdeathbycountry
-//   val case_death=sample.getcases_and_deathbycountry
-  
-  // val deathbyCountry=sample2.getdeathbycountry
+
    val case_death=sample2.getcases_and_deathbycountry
   
-  
-   
-  // top 5 country 
-/*   def topfive() :List[Corona] ={
-    
 
-      var listper:List[Corona]=null
-      var listBuff = new ListBuffer[Corona]()  
-      
-val x = deathbyCountry.toSeq.sortWith(_._2 > _._2).take(5)
-
-
-for(i <- x){
-
- val data="\n  "+i._1 +" : "+(i._2)
-  listBuff += Corona(data)
-}
-  listper=listBuff.toList
-  
-  for(i <- listper) {println (i)}
-  
-  
-  listper
-}*/
      
  // all country
    def allCountry() = {
@@ -91,8 +65,8 @@ for(i <- x){
       def five() = {
         
         
-      var listper:List[(String,String,String)]=null
-      var listBuff = new ListBuffer[(String,String,String)]()  
+      var listper:List[(String,String,String,String)]=null
+      var listBuff = new ListBuffer[(String,String,String,String)]()  
 
 
       
@@ -117,8 +91,11 @@ for(i <- x){
                                .replace("", "")
                                 .replace("", "")
         
+                                
+              val href= "/trend?name="+country                   
+                                
          val data="\n  "+i._1 +" : "+i._2._1+ ", "+i._2._2
-         val d=(country,i._2._1.toString(),i._2._2.toString())
+         val d=(country,i._2._1.toString(),i._2._2.toString(),href)
           listBuff += (d)
         }
           listper=listBuff.toList
