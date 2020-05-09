@@ -29,10 +29,12 @@ object sample2 {
             val url="https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
             val data=scala.io.Source.fromURL(url).getLines().toArray
            
+       
         data
      }
   
   
+   
   
    
        var line = scala.io.Source.fromURL(url).getLines().toVector//.take(100)
@@ -52,9 +54,14 @@ object sample2 {
        line <- line.drop(1).toVector//.take(100)
        values = line.split(",").map(_.trim).filter(! _.contains("127.766922")).filter(! _.contains("-68.2385"))
        
+      
+       
     } yield Corona2(values(date),values(country) ,values(confirm), values(death), values(recover), values(active))
   }
 
+      
+   
+       
  //.filter(_.country != "United States")
 
 val corona=readcoronaCSV()
