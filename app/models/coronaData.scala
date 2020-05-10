@@ -6,7 +6,7 @@ case class Corona(name: String)
 
 object coronaData {
  
-  // called from com.spark.corona package 
+  // called from com.spark.corona package l
   
 
    val case_death=sample2.getcases_and_deathbycountry
@@ -36,7 +36,7 @@ object coronaData {
          var country=i._1.replace("United_States_of_America", "USA")
                        
                                // .replace("Sint Eustatius and Saba\"", "Netherlands")
-                                .replace("", "")
+                               
             
                              
           //  println(country)                      
@@ -70,7 +70,7 @@ object coronaData {
        
        
         for(i <- sort){
-        val country=i._1.replace("karam", "Saint")
+        var country=i._1
                          
                             //   .replace("Sint Eustatius\"", "Netherlands")
                               
