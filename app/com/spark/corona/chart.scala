@@ -33,6 +33,13 @@ object chart {
            
          //  println(" \n first DATA :  \n\n"+data.mkString(",")) 
             
+            data = data.map(_.replaceAll("Bonaire, Sint Eustatius and Saba", "Bonaire Sint Eustatius and Saba")
+                              .replaceAll("\"Korea, South\"", "Korea South")
+                )
+              
+                
+        //    .map(_.replace("\"Korea, South\"", "Korea South,")) 
+            
             val dateser=data.take(1).mkString(",").split(",")
             var ndateser=  dateser.toBuffer
             
@@ -58,7 +65,8 @@ object chart {
             
                     var karam=data.filter(_.contains(p_country))
          
-      
+              
+                    
            var a :Buffer[String] =null
             var listBuff = new ListBuffer[String] 
                  for(i <-  karam)  { 
@@ -70,14 +78,21 @@ object chart {
                  }
               
             var list=listBuff.toList
-      
-             
+         
+            
+            
      
              
             val donutsGroup = list
      
+          
+            
+            
             val cnd=   donutsGroup.map(_.split(",").map(_.toInt).toList)
       
+            
+            
+            
          
             val sum=   cnd.transpose.map(_.sum) 
        
@@ -99,7 +114,7 @@ object chart {
                
                
                
-               
+              
                
 
                var chartdata=contrydata.mkString(",")
@@ -119,8 +134,9 @@ object chart {
             val url="https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
             var data=scala.io.Source.fromURL(url).getLines().toArray
            
-          
-            
+             data = data.map(_.replaceAll("Bonaire, Sint Eustatius and Saba", "Bonaire Sint Eustatius and Saba")
+                              .replaceAll("\"Korea, South\"", "Korea South")
+                )  
             val dateser=data.take(1).mkString(",").split(",")
             var ndateser=  dateser.toBuffer
             
@@ -203,8 +219,9 @@ object chart {
             val url="https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
             var data=scala.io.Source.fromURL(url).getLines().toArray
            
-          
-            
+              data = data.map(_.replaceAll("Bonaire, Sint Eustatius and Saba", "Bonaire Sint Eustatius and Saba")
+                              .replaceAll("\"Korea, South\"", "Korea South")
+                )  
             val dateser=data.take(1).mkString(",").split(",")
             var ndateser=  dateser.toBuffer
             
