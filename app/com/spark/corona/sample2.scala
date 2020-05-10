@@ -38,7 +38,10 @@ object sample2 {
   
    
        var line = scala.io.Source.fromURL(url).getLines().toVector//.take(100)
+     //"Korea, South"
+       line=line.map(_.replace("\"Korea, South\"", "Korea South,")) 
      
+       
        val firstrow=line.head.split(",")
        var country=firstrow.indexOf("Country_Region")
        var date=firstrow.indexOf("Last_Update")
@@ -52,7 +55,10 @@ object sample2 {
     for {
       //line <- Source.fromFile(path).getLines().drop(1).toVector
        line <- line.drop(1).toVector//.take(100)
-       values = line.split(",").map(_.trim).filter(! _.contains("127.766922")).filter(! _.contains("-68.2385"))
+       values = line.split(",").map(_.trim).filter(! _.contains("127.766922"))
+                                           .filter(! _.contains("-68.2385"))
+                                          
+                              
        
       
        
@@ -66,10 +72,10 @@ object sample2 {
 
 val corona=readcoronaCSV()
 
-//for(x <- corona) println(x)
+//  for(x <- corona) println(x)
 
 
-
+ // .map(_.country.replaceAll("South\",\"Korea", "South Korea")) 
 
 def getcases_and_deathbycountry(): Map[String,(Int,Int,Int,Int)] = {
     def sumdeath(cases: Seq[Corona2]): (Int,Int,Int,Int) = {
