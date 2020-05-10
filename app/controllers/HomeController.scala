@@ -91,14 +91,21 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    def index(name: String) = Action { implicit request: Request[AnyContent] =>
     
      val data=sample2.getcases_and_deathbycountry.toSeq.sortWith( _._2._1 > _._2._1)
+             .filter(! _._1.contains("Sint Eustatius and Saba\""))
    
        var country:List[(String,String)]=null
      var listBuff = new ListBuffer[(String,String)]
     for((k,v) <- data) {
+//      println("=="*50)
       var cname= (k,"/trend?name="+k.replace(" ", "%20"))
+//         println(cname)
+      
       listBuff += (cname)
     }
      country=listBuff.toList     
+     
+  
+     
      
        val trendCase=chart.trendCase(name)
         
