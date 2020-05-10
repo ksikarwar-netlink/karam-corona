@@ -38,10 +38,12 @@ object sample2 {
   
    
        var line = scala.io.Source.fromURL(url).getLines().toVector//.take(100)
-     //"Korea, South"
-       line=line.map(_.replace("\"Korea, South\"", "Korea South,")) 
-     
-       
+  
+       line=line.map(_.replaceAll("\"Korea, South\"", "Korea South")
+                      .replaceAll("Bonaire, Sint Eustatius and Saba", "Bonaire Sint Eustatius and Saba")
+                      ) 
+   
+
        val firstrow=line.head.split(",")
        var country=firstrow.indexOf("Country_Region")
        var date=firstrow.indexOf("Last_Update")
@@ -50,17 +52,14 @@ object sample2 {
        var recover=firstrow.indexOf("Recovered")
        var active=firstrow.indexOf("Active")
    
-  
+ 
  def readcoronaCSV(): Seq[Corona2] = {
     for {
-      //line <- Source.fromFile(path).getLines().drop(1).toVector
        line <- line.drop(1).toVector//.take(100)
-       values = line.split(",").map(_.trim).filter(! _.contains("127.766922"))
-                                           .filter(! _.contains("-68.2385"))
-                                          
-                              
-       
-      
+      values = line.split(",").map(_.trim)
+//       .filter(! _.contains("127.766922"))
+//                                           .filter(! _.contains("-68.2385"))
+  
        
     } yield Corona2(values(date),values(country) ,values(confirm), values(death), values(recover), values(active))
   }
@@ -72,10 +71,7 @@ object sample2 {
 
 val corona=readcoronaCSV()
 
-//  for(x <- corona) println(x)
 
-
- // .map(_.country.replaceAll("South\",\"Korea", "South Korea")) 
 
 def getcases_and_deathbycountry(): Map[String,(Int,Int,Int,Int)] = {
     def sumdeath(cases: Seq[Corona2]): (Int,Int,Int,Int) = {
@@ -83,7 +79,7 @@ def getcases_and_deathbycountry(): Map[String,(Int,Int,Int,Int)] = {
      val Case= cases.map(_.cases.toInt).sum
      val recovered= cases.map(_.recovered.toInt).sum
      val active= cases.map(_.active.toInt).sum
-     // salesOfAPaymentTyp.map(_.cases).sum
+   
      (Case,death,recovered,active)
     }
   
