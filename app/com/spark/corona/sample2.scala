@@ -78,7 +78,7 @@ def getcases_and_deathbycountry(): Map[String,(Int,Int,Int,Int)] = {
      val death= cases.map(_.deaths.toInt).sum
      val Case= cases.map(_.cases.toInt).sum
      val recovered= cases.map(_.recovered.toInt).sum
-     val active= cases.map(_.active.toInt).sum
+     val active= Case-(death+recovered)//cases.map(_.active.toInt).sum
    
      (Case,death,recovered,active)
     }
