@@ -98,13 +98,25 @@ def getNumberOfSalesGroupedByDay(): Map[String, Int] = {
     corona.groupBy(extractDay(_)).mapValues(_.length)
   }
 
-// total cases and death widget
+
+/*// total cases and death widget
 def getcases_and_death():(Int, Int,Int,Int) = {
     val filtered = corona//.filter(_.country != "United States")
     (filtered.map(_.cases.toInt).sum,
      filtered.map(_.deaths.toInt).sum,
      filtered.map(_.recovered.toInt).sum,
      filtered.map(_.active.toInt).sum)
+  }*/
+
+// total cases and death widget
+def getcases_and_death():(Int, Int,Int,Int) = {
+    val filtered = corona//.filter(_.country != "United States")
+    var cases= filtered.map(_.cases.toInt).sum
+    var death= filtered.map(_.deaths.toInt).sum
+    var recov= filtered.map(_.recovered.toInt).sum
+    var activ= cases-(death+recov)
+     (cases,death,recov,activ)
+     
   }
 
 
