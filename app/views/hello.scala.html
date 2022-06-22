@@ -1,65 +1,74 @@
-	
-
-
 @(people: (List[(String, String, String, String)],String,String,String,String,String))
 @main("corona") {
 @defining(play.core.PlayVersion.current) { version =>
 
 <section id="content">
-     <center><b> Last Updated -  @people._2</b></center>
-    
- <div class="row" style="margin: 15px;padding: 10px;">
-      
-<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
-   <h2 style="font-family: candara;text-align: center;color: slategray;font-weight: bold;font-size: 23px;">Total Case</h2>
-   <h2 style="font-family: candara;text-align: center;color: slategray;font-weight: bold;font-size: 23px;">@people._3</h2>
-</div>
-<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
-   <h2 style="font-family: candara;text-align: center;color: #e96565;font-weight: bold;font-size: 23px;">Total Death</h2>
-    <h2 style="font-family: candara;text-align: center;color: #e96565;font-weight: bold;font-size: 28px;">@people._4</h2>
-</div>
-<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
-   <h2 style="font-family: candara;text-align: center;color: #89ab45;font-weight: bold;font-size: 23px;">Total Recovered</h2>
-   <h2 style="font-family: candara;text-align: center;color: #89ab45;font-weight: bold;font-size: 28px;">@people._5</h2>
-</div>
-<div class="col-md-3" id="none" data-panel_type="none" style="border-radius: 15px;border: 0px solid;background: white;">
-    <h2 style="font-family: candara;text-align: center;color: #4cdcdc;font-weight: bold;font-size: 23px;">Total Active</h2>
-    <h2 style="font-family: candara;text-align: center;color: #4cdcdc;font-weight: bold;font-size: 28px;">@people._6</h2>
-</div>
-</div>
-          
-  <div class="wrapper doc" style="padding: 10px 0px;">
+    <center><b> Last Updated - @people._2</b></center>
 
-      
-   
-    <article> 
- 
-   
-      <p>Top five countries <b>total cases:</b></p>
-			   <table>
-			   <tr>
-          <td><b>Country</b></td>
-          <td><b>Cases</b></td>
-          <td><b>Deaths</b></td>
-      </tr>
-			@people._1.map { person =>
-			  <tr>
-          <td><a target="_blank" href=@person._4>@person._1</a></td>
-          <td>@person._2</td>
-         <td>@person._3</td>
-      </tr>
-			}
-			</table>
+    <div class="row" style="margin: 15px;padding: 10px;">
 
-      <p><b>View all countries</b> <a href="@routes.HomeController.explore"> click here </a></p>
-   <br>
-      <h3 id="next-steps">Other Updates</h3>
-      <p>Click, here <a target="_blank" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019">WHO Corona virus latest Updates on Coronavirus</a>.</p>
-    </article>
-    <aside>
-      @commonSidebar()
-    </aside>
-  </div>
+        <div class="col-md-3" id="none" data-panel_type="none"
+             style="border-radius: 15px;border: 0px solid;background: white;">
+            <h2 style="font-family: candara;text-align: center;color: slategray;font-weight: bold;font-size: 23px;">
+                Total Case</h2>
+            <h2 style="font-family: candara;text-align: center;color: slategray;font-weight: bold;font-size: 23px;">
+                @people._3</h2>
+        </div>
+        <div class="col-md-3" id="none" data-panel_type="none"
+             style="border-radius: 15px;border: 0px solid;background: white;">
+            <h2 style="font-family: candara;text-align: center;color: #e96565;font-weight: bold;font-size: 23px;">Total
+                Death</h2>
+            <h2 style="font-family: candara;text-align: center;color: #e96565;font-weight: bold;font-size: 28px;">
+                @people._4</h2>
+        </div>
+        <div class="col-md-3" id="none" data-panel_type="none"
+             style="border-radius: 15px;border: 0px solid;background: white;">
+            <h2 style="font-family: candara;text-align: center;color: #89ab45;font-weight: bold;font-size: 23px;">Total
+                Recovered</h2>
+            <h2 style="font-family: candara;text-align: center;color: #89ab45;font-weight: bold;font-size: 28px;">
+                @people._5</h2>
+        </div>
+        <div class="col-md-3" id="none" data-panel_type="none"
+             style="border-radius: 15px;border: 0px solid;background: white;">
+            <h2 style="font-family: candara;text-align: center;color: #4cdcdc;font-weight: bold;font-size: 23px;">Total
+                Active</h2>
+            <h2 style="font-family: candara;text-align: center;color: #4cdcdc;font-weight: bold;font-size: 28px;">
+                @people._6</h2>
+        </div>
+    </div>
+
+    <div class="wrapper doc" style="padding: 10px 0px;">
+
+
+        <article>
+
+
+            <p>Top five countries <b>total cases:</b></p>
+            <table>
+                <tr>
+                    <td><b>Country</b></td>
+                    <td><b>Cases</b></td>
+                    <td><b>Deaths</b></td>
+                </tr>
+                @people._1.map { person =>
+                <tr>
+                    <td><a target="_blank" href=@person._4>@person._1</a></td>
+                    <td>@person._2</td>
+                    <td>@person._3</td>
+                </tr>
+                }
+            </table>
+
+            <p><b>View all countries</b> <a href="@routes.HomeController.explore"> click here </a></p>
+            <br>
+            <h3 id="next-steps">Other Updates</h3>
+            <p>Click, here <a target="_blank" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019">WHO
+                Corona virus latest Updates on Coronavirus</a>.</p>
+        </article>
+        <aside>
+            @commonSidebar()
+        </aside>
+    </div>
 </section>
 }
 }
