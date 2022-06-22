@@ -1,0 +1,9 @@
+# file ignored
+logs/
+project/project/
+project/target/
+target/
+.idea/
+.idea_modules/
+.bsp
+logs/application.log
