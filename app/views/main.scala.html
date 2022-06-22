@@ -1,10 +1,10 @@
 @*
- * This template is called from the `index` template. This template
- * handles the rendering of the page header and body tags. It takes
- * two arguments, a `String` for the title of the page and an `Html`
- * object to insert into the body of the page.
- *@
- 
+* This template is called from the `index` template. This template
+* handles the rendering of the page header and body tags. It takes
+* two arguments, a `String` for the title of the page and an `Html`
+* object to insert into the body of the page.
+*@
+
 
 @(title: String)(content: Html)
 
@@ -18,32 +18,32 @@
     <link rel="stylesheet" media="screen" href='@routes.Assets.versioned("stylesheets/main.css")'>
     <link rel="stylesheet" media="screen" href='@routes.Assets.versioned("stylesheets/prism.css")'>
     <link rel="shortcut icon" type="image/png" href='@routes.Assets.versioned("images/corona.png")'>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src='@routes.Assets.versioned("javascripts/hello.js")' type="text/javascript"></script>
     <script src='@routes.Assets.versioned("javascripts/prism.js")' type="text/javascript"></script>
 
 
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/data.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 
 </head>
 
 <body>
-    <section id="top">
-        <div class="wrapper">
-            <img class="resize" src="assets/images/corona.png" alt="logo" />  
-    
-            <h1><a href="@routes.HomeController.corona">World Corona Tracker</a></h1> 
-        </div>
-    </section>
-    @content
+<section id="top">
+    <div class="wrapper">
+        <img class="resize" src="assets/images/corona.png" alt="logo"/>
+
+        <h1><a href="@routes.HomeController.corona">World Corona Tracker</a></h1>
+    </div>
+</section>
+@content
 </body>
 
 </html>
